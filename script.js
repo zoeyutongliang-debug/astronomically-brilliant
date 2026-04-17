@@ -51,23 +51,38 @@ document.getElementById('submitQuestion').addEventListener('click', async () => 
 
 // Questions vs answers
 
-if (data.visible) {
-  const div = document.createElement('div');
-  div.className = 'question-item';
+const questionsList = document.getElementById("questionsList");
+const modPanel = document.getElementById("modPanel");
+
+function createMessage(data, showAnswer = true) {
+  const div = document.createElement("div");
+  div.className = "question-item";
 
   div.innerHTML = `
-    <div class="message user-msg">
+    <div class="user-block">
       <strong>What you said:</strong>
       <p>${data.text}</p>
     </div>
 
-    <div class="message answer-msg">
-      <strong>What I said:</strong>
-      <p>${data.answer || "(not answered yet)"}</p>
-    </div>
+    ${showAnswer ? `
+      <div class="answer-block">
+        <strong>My answer:</strong>
+        <p>${data.answer || "(not answered yet)"}</p>
+      </div>
+    ` : ""}
   `;
 
-  questionsList.appendChild(div);
+  return div;
+}
+
+// MAIN DISPLAY
+if (data.visible) {
+  questionsList.appendChild(createMessage(data, true));
+}
+
+// MODERATOR DISPLAY
+if (isModerator) {
+  modPanel.appendChild(createMessage(data, false));
 }
   
 // Load questions from Firebase
