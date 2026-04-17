@@ -48,42 +48,6 @@ document.getElementById('submitQuestion').addEventListener('click', async () => 
   document.getElementById('userQuestion').value = "";
   loadQuestions();
 });
-
-// Questions vs answers
-
-const questionsList = document.getElementById("questionsList");
-const modPanel = document.getElementById("modPanel");
-
-function createMessage(data, showAnswer = true) {
-  const div = document.createElement("div");
-  div.className = "question-item";
-
-  div.innerHTML = `
-    <div class="user-block">
-      <strong>What you said:</strong>
-      <p>${data.text}</p>
-    </div>
-
-    ${showAnswer ? `
-      <div class="answer-block">
-        <strong>My answer:</strong>
-        <p>${data.answer || "(not answered yet)"}</p>
-      </div>
-    ` : ""}
-  `;
-
-  return div;
-}
-
-// MAIN DISPLAY
-if (data.visible) {
-  questionsList.appendChild(createMessage(data, true));
-}
-
-// MODERATOR DISPLAY
-if (isModerator) {
-  modPanel.appendChild(createMessage(data, false));
-}
   
 // Load questions from Firebase
 async function loadQuestions() {
