@@ -27,36 +27,6 @@ h1 span {
   font-family: "Copperplate", fantasy;
 }
 
-.question-item {
-  padding: 12px;
-  margin-bottom: 12px;   /* 👈 THIS creates spacing between boxes */
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  background: #f9f9f9;
-}
-
-.question-item strong {
-  display: block;
-  margin-bottom: 6px;
-}
-
-.question-item p {
-  margin: 6px 0;
-}
-
-.user-block {
-  background: #f2f2f2;
-  padding: 8px;
-  border-radius: 6px;
-  margin-bottom: 8px;
-}
-
-.answer-block {
-  background: #e7f3ff;
-  padding: 8px;
-  border-radius: 6px;
-}
-
 /* animation effs */
 @keyframes glow {
   from { box-shadow: 0 0 5px #ff88aa; }
