@@ -129,18 +129,8 @@
         const docId = docSnap.id;
 
         // display question in public list if visible
-     if (data.visible) {
-          const div = document.createElement('div');
-          div.className = 'question-item';
-          div.innerHTML = `<strong>somebody said:</strong> ${data.text}<br><strong>i said:</strong> ${data.answer || "(not answered yet)"}`;
-          questionsList.appendChild(div);
-        }
-
-        // display question in mod panel
-        if (isModerator) {
-          const div = document.createElement('div');
-          div.className = 'question-item';
-          div.innerHTML = `<strong>somebody said:</strong> ${data.text}`;
+<div id="questionsList"></div>
+<div id="modPanel"></div>
           
           // answer input if not answered
           if (!data.answered) {
