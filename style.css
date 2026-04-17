@@ -27,6 +27,9 @@ h1 span {
   font-family: "Copperplate", fantasy;
 }
 
+.message-block {
+  margin-bottom: 12px;
+}
 
 /* animation effs */
 @keyframes glow {
