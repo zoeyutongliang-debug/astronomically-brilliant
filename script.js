@@ -62,10 +62,26 @@ window.addEventListener("DOMContentLoaded", () => {
       // display question in public list if visible
       if (data.visible) {
         const div = document.createElement('div');
-        div.className = 'question-item';
-        div.innerHTML = `<strong>somebody said:</strong> ${data.text}<br><strong>i said:</strong> ${data.answer || "(not answered yet)"}`;
-        questionsList.appendChild(div);
-      }
+         div.className = 'question-item';
+
+        const textDiv = document.createElement('div');
+        textDiv.className = 'truncated';
+
+        textDiv.innerHTML = `
+            <strong>somebody said:</strong> ${data.text}<br><br>
+            <strong>i said:</strong> ${data.answer || "(not answered yet)"}
+        `;
+
+        const button = document.createElement('button');
+        button.textContent = "read more";
+
+        button.onclick = () => {
+         textDiv.classList.toggle('truncated');
+         button.textContent =
+         textDiv.classList.contains('truncated')
+        ? "read more"
+        : "show less";
+    };
 
       // display question in mod panel
       if (isModerator) {
