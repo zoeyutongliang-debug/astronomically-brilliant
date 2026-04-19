@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>My Website</title>
-  <link rel="icon" type="image/png" href="Untitled_Artwork.png">
+  <title>astronomically brilliant</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <script src="https://unpkg.com/roughjs/bundled/rough.js"></script>
 
-<!--jeader-->
-  <h1><span>astronomically brilliant⁻¹</span></h1>
+<body>
+
+<h1><span>astronomically brilliant⁻¹</span></h1>
+
 <p>here is the pipe system where I flush my brain feces into:</p>
 
   <title>Q&A Demo</title>
@@ -25,194 +24,36 @@
 
 <!--Posts-->
 <div class="grid-container">
-  <div class="box"><a href="article1/article1.html">TiO₂, Texas, and the 5 Second Rule</a></div>
-  <div class="box"><a href="">coming soon...</a></div>
+  <div class="box"><a href="article1.html">TiO₂, Texas, and the 5 Second Rule</a></div>
+  <div class="box"><a href="article2.html">coming soon...</a></div>
 </div>
 
- <!DOCTYPE html>
-<html>
-<head>
-  <style>
-    body {
-      background-color: rgb(53, 53, 58);
-      color: white;
-      font-family: "Adorn Serif", serif;
-      text-align: center;
-      max-width: 800px;
-      margin: auto;
-    }
-    .question-item {
-      background: #f0f0f0;
-      color: black;
-      padding: 10px;
-      margin-bottom: 8px;
-      border-radius: 8px;
-      text-align: left;
-    }
-    .button {
-      margin-right: 5px;
-      margin-top: 5px;
-    }
-    #moderatorPanel {
-      display: none;
-      background: #ddd;
-      color: black;
-      padding: 10px;
-      border-radius: 8px;
-      margin-top: 20px;
-    }
-  </style>
-</head>
-<body>
-  
   <!-- user question form -->
    <h1>piggybank for your valuable thoughts</h1>
-
 
 <div class="question-form">
   <input type="text" id="userQuestion" placeholder="what's bothering u?">
   <button id="submitQuestion">ask away!</button>
+  <div id="moderatorPanel" style="display:none;"></div>
 </div>
 
   <!-- display questions -->
   <div id="questionsList"></div>
 
-  <!-- mod panel -->
-
-  <div id="moderatorPanel">
-    <h2>Moderator Panel</h2>
-    <button id="exitModerator">exit boss mode</button>
+    <!-- mod panel -->
     <div id="pendingQuestions"></div>
   </div>
-
-  <!-- Firebase -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getFirestore, collection, addDoc, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyDzfWGiPaf6gDEtWW2nvWmtHNM9-NL53VU",
-      authDomain: "astronomicallybrilliant.firebaseapp.com",
-      projectId: "astronomicallybrilliant",
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    const submitButton = document.getElementById('submitQuestion');
-    const questionInput = document.getElementById('userQuestion');
-    const questionsList = document.getElementById('questionsList');
-    const moderatorPanel = document.getElementById('moderatorPanel');
-    const pendingQuestions = document.getElementById('pendingQuestions');
-    const showModerator = document.getElementById('showModerator');
-    const exitModerator = document.getElementById('exitModerator');
-
-    let isModerator = false;
-
-    // sumbit questions
-    submitButton.addEventListener('click', async () => {
-      const text = questionInput.value.trim();
-      if (!text) return alert("don't be so eager, type a question first!");
-      await addDoc(collection(db, "questions"), { text, answer: "", visible: false, answered: false });
-      questionInput.value = "";
-      loadQuestions();
-    });
-
-    // load + display questions
-    async function loadQuestions() {
-      const querySnapshot = await getDocs(collection(db, "questions"));
-      questionsList.innerHTML = "";
-      pendingQuestions.innerHTML = "";
-
-      querySnapshot.forEach((docSnap) => {
-        const data = docSnap.data();
-        const docId = docSnap.id;
-        
-
-        // questions vs answers
-
-             if (data.visible) {
-          const div = document.createElement('div');
-          div.className = 'question-item';
-          div.innerHTML = `<strong>somebody said:</strong> ${data.text}<br><strong>i said:</strong> ${data.answer || "(not answered yet)"}`;
-          questionsList.appendChild(div);
-        }
-
-        // display question in mod panel
-        if (isModerator) {
-          const div = document.createElement('div');
-          div.className = 'question-item';
-          div.innerHTML = `<strong>somebody said:</strong> ${data.text}`;
-
-          // answer input if not answered
-          if (!data.answered) {
-            const answerInput = document.createElement('input');
-            answerInput.placeholder = "Type your answer...";
-            const answerButton = document.createElement('button');
-            answerButton.textContent = "Submit Answer";
-            answerButton.className = "button";
-            answerButton.addEventListener('click', async () => {
-              await updateDoc(doc(db, "questions", docId), { answer: answerInput.value, answered: true });
-              loadQuestions();
-            });
-            div.appendChild(answerInput);
-            div.appendChild(answerButton);
-          } else {
-            const aText = document.createElement('p');
-            aText.innerHTML = `<strong>i said:</strong> ${data.answer}`;
-            div.appendChild(aText);
-          }
-
-          // Make visible button
-          const showButton = document.createElement('button');
-          showButton.textContent = "make visible";
-          showButton.className = "button";
-          showButton.addEventListener('click', async () => {
-            if (!data.answered) return alert("Answer first!!");
-            await updateDoc(doc(db, "questions", docId), { visible: true });
-            loadQuestions();
-          });
-          div.appendChild(showButton);
-
-          // Delete button
-          const deleteButton = document.createElement('button');
-          deleteButton.textContent = "Delete";
-          deleteButton.className = "button";
-          deleteButton.addEventListener('click', async () => {
-            if (confirm("u wanna delete this question?")) {
-              await updateDoc(doc(db, "questions", docId), { deleted: true }); // optional soft delete
-              // or use Firestore deleteDoc(doc(db,"questions",docId))
-              loadQuestions();
-            }
-          });
-          div.appendChild(deleteButton);
-
-          pendingQuestions.appendChild(div);
-        }
-      });
-    }
-
-    // ----------------- Moderator login -----------------
-
-    exitModerator.addEventListener('click', () => {
-      isModerator = false;
-      moderatorPanel.style.display = "none";
-      showModerator.style.display = "inline-block";
-      loadQuestions();
-    });
-
-    // Initial load
-    window.addEventListener('DOMContentLoaded', loadQuestions);
-
-
-  </script>
-</body>
-</html>
 
 <!--footer-->
 <footer>
  <p>© astronomically and brilliantly inspired by Randall Munroe</p>
 </footer>
+</body>
+</html>
+
+<script type="module" src="script.js"></script>
+</body>
+</html>
 
 
 <nav>
