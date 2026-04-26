@@ -1,18 +1,543 @@
 <!DOCTYPE html>
-<html>
 <head>
   <title>astronomically brilliant</title>
-  <link rel="icon" type="image/png" href="Untitled_Artwork.png">
   <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>astronomically brilliant⁻¹</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-<h1><span>astronomically brilliant⁻¹</span></h1>
+  :root {
+    --bg: #232323;
+    --bg2: #2f2f2f;
+    --ink: #e7e7e7;
+    --ink2: #ff5757;
+    --ink3: #f3cece;
+    --accent: #c94a2a;
+    --accent2: #e8703e;
+    --line: #cbc5ae;
+    --serif: 'Instrument Serif', Georgia, serif;
+    --mono: 'Space Mono', monospace;
+  }
 
-<p>here is the pipe system where I flush my brain feces into:</p>
+  html { scroll-behavior: smooth; }
 
-  <title>Q&A Demo</title>
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--mono);
+    font-size: 14px;
+    line-height: 1.7;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.5;
+  }
+
+  /* ── HEADER ── */
+  header {
+    border-bottom: 1.5px solid var(--ink);
+    padding: 0 2rem;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    z-index: 100;
+  }
+
+  .site-title {
+    font-family: var(--serif);
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    font-style: italic;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 1rem 0;
+    border-right: 1.5px solid var(--ink);
+    padding-right: 1.5rem;
+    margin-right: 1.5rem;
+  }
+
+  .site-title sup {
+    font-family: var(--mono);
+    font-size: 0.6em;
+    color: var(--accent);
+    font-style: normal;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    flex: 1;
+  }
+
+  nav a {
+    color: var(--ink2);
+    text-decoration: none;
+    font-size: 12px;
+    padding: 0.4rem 0.7rem;
+    border-radius: 2px;
+    transition: background 0.15s, color 0.15s;
+    letter-spacing: 0.03em;
+  }
+
+  nav a:hover {
+    background: var(--ink);
+    color: var(--bg);
+  }
+
+  .header-tagline {
+    font-size: 11px;
+    color: var(--ink3);
+    padding: 1rem 0;
+    max-width: 260px;
+    text-align: right;
+    line-height: 1.4;
+    display: flex;
+    align-items: center;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 5rem 2rem 4rem;
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .hero-eyebrow::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--accent);
+    opacity: 0.4;
+  }
+
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-style: italic;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 2rem;
+  }
+
+  .hero h1 em {
+    color: var(--accent);
+    font-style: italic;
+  }
+
+  .hero-desc {
+    font-size: 13px;
+    color: var(--ink2);
+    max-width: 480px;
+    line-height: 1.9;
+    border-left: 2px solid var(--accent);
+    padding-left: 1rem;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    border: none;
+    border-top: 1.5px solid var(--ink);
+    margin: 0;
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    padding: 0.5rem 2rem;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-label::before {
+    content: '//';
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* ── ARTICLES ── */
+  .articles-section {
+    padding: 3rem 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1px;
+    border: 1.5px solid var(--ink);
+    margin-top: 1.5rem;
+  }
+
+  .article-card {
+    padding: 1.5rem;
+    background: var(--bg);
+    text-decoration: none;
+    color: var(--ink);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    border-right: 1px solid var(--line);
+    transition: background 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .article-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+    transform-origin: left;
+  }
+
+  .article-card:hover { background: var(--bg2); }
+  .article-card:hover::before { transform: scaleX(1); }
+
+  .article-num {
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+
+  .article-title {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    font-style: italic;
+    line-height: 1.3;
+    color: var(--ink);
+  }
+
+  .article-meta {
+    font-size: 11px;
+    color: var(--ink3);
+    margin-top: auto;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .article-card.coming-soon {
+    opacity: 0.45;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  /* ── GALLERY ── */
+  .gallery-section {
+    padding: 3rem 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    border: 1.5px solid var(--ink);
+    margin-top: 1.5rem;
+    overflow: hidden;
+  }
+
+  .gallery-item {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+    cursor: pointer;
+    background: var(--bg2);
+  }
+
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease, filter 0.4s ease;
+    filter: sepia(20%) saturate(0.85);
+  }
+
+  .gallery-item:hover img {
+    transform: scale(1.06);
+    filter: sepia(0%) saturate(1);
+  }
+
+  .gallery-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem 0.75rem 0.6rem;
+    font-size: 11px;
+    color: #fff;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    letter-spacing: 0.05em;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .gallery-item:hover .gallery-caption { opacity: 1; }
+
+  /* ── LIGHTBOX ── */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 13, 10, 0.95);
+    z-index: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s;
+    padding: 2rem;
+  }
+
+  .lightbox.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .lightbox img {
+    max-width: 100%;
+    max-height: 80vh;
+    object-fit: contain;
+    border: 1px solid rgba(255,255,255,0.12);
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: none;
+    border: 1px solid rgba(255,255,255,0.3);
+    color: #fff;
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 0.4rem 0.8rem;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: background 0.15s;
+  }
+
+  .lightbox-close:hover { background: rgba(255,255,255,0.1); }
+
+  .lightbox-label {
+    position: absolute;
+    bottom: 2rem;
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.08em;
+  }
+
+  /* ── Q&A ── */
+  .qa-section {
+    padding: 3rem 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .qa-form {
+    margin-top: 1.5rem;
+    border: 1.5px solid var(--ink);
+    background: var(--bg);
+  }
+
+  .qa-form textarea {
+    width: 100%;
+    min-height: 120px;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--line);
+    padding: 1rem;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--ink);
+    resize: vertical;
+    outline: none;
+    line-height: 1.6;
+  }
+
+  .qa-form textarea::placeholder { color: var(--ink3); }
+
+  .qa-form textarea:focus { border-bottom-color: var(--accent); }
+
+  .qa-form-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: var(--bg2);
+  }
+
+  .qa-note {
+    font-size: 11px;
+    color: var(--ink3);
+  }
+
+  .qa-submit {
+    font-family: var(--mono);
+    font-size: 12px;
+    background: var(--ink);
+    color: var(--bg);
+    border: none;
+    padding: 0.5rem 1.25rem;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: background 0.15s;
+  }
+
+  .qa-submit:hover { background: var(--accent); }
+
+  /* answered Q&A items */
+  .qa-list {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1.5px solid var(--ink);
+    border-top: none;
+  }
+
+  .qa-item {
+    border-top: 1.5px solid var(--ink);
+    padding: 1.25rem 1rem;
+  }
+
+  
+  .qa-q .question-item{
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+
+  .qa-q::before {
+    content: 'Q: ';
+    font-family: var(--mono);
+    font-size: 10px;
+    font-style: normal;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-right: 0.25rem;
+  }
+
+  .qa-a {
+    font-size: 13px;
+    color: var(--ink2);
+    line-height: 1.8;
+    padding-left: 1rem;
+    border-left: 2px solid var(--line);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1.5px solid var(--ink);
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    color: var(--ink3);
+    margin-top: 4rem;
+  }
+
+  footer a { color: var(--accent); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  /* ── SECTION HEADER INLINE ── */
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-header h2 {
+    font-family: var(--serif);
+    font-size: 1.6rem;
+    font-style: italic;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+
+  .section-header .count {
+    font-size: 11px;
+    color: var(--ink3);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadein {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero { animation: fadein 0.6s ease both; }
+  .articles-section { animation: fadein 0.6s 0.1s ease both; }
+  .gallery-section { animation: fadein 0.6s 0.2s ease both; }
+  .qa-section { animation: fadein 0.6s 0.3s ease both; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 580px) {
+    header { flex-wrap: wrap; padding: 0 1rem; }
+    .header-tagline { display: none; }
+    .site-title { border-right: none; }
+    .hero { padding: 3rem 1rem 2.5rem; }
+    .articles-section, .gallery-section, .qa-section { padding: 2rem 1rem; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+
+
+</style>
+<title>Q&A Demo</title>
   <style>
     #questionsList, #moderatorPanel { margin-top: 20px; }
     .question-item {
@@ -22,149 +547,122 @@
       margin-bottom: 6px;
     }
   </style>
+</head>
+<body>
 
-<!--Posts-->
-<div class="grid-container">
-  <div class="box"><a href="article1/article1.html">TiO₂, Texas, and the 5 Second Rule</a></div>
-  <div class="box"><a href="article2.html">coming soon...</a></div>
-</div>
+<header>
+  <a href="#" class="site-title">astronomically brilliant<sup>⁻¹</sup></a>
+  <nav>
+    <a href="#articles">articles</a>
+    <a href="#gallery">photos</a>
+    <a href="#qa">Q&amp;A</a>
+  </nav>
+  <div class="header-tagline">a pipe system for flushing brain feces into</div>
+</header>
 
-  <!-- user question form -->
-   <h1>piggybank for your valuable thoughts</h1>
+<section class="hero">
+  <div class="hero-eyebrow">est. recently · inspired by randall munroe</div>
+  <h1><span>astronomically</span></h1>
+    <h1><span>brilliant⁻¹</span></h1>
+  <p class="hero-desc">
+    a brain feces pipeline,
+    populated and run by 
+    parasitic brain worms
+  </p>
+</section>
 
-<div class="question-form">
-  <input type="text" id="userQuestion" placeholder="what's bothering u?">
-  <button id="submitQuestion">ask away!</button>
-  <div id="moderatorPanel" style="display:none;"></div>
-</div>
+<hr class="divider">
+<div class="section-label">articles</div>
 
-  <!-- display questions -->
-  <div id="questionsList"></div>
+<section class="articles-section" id="articles">
+  <div class="section-header">
+    <h2>the writings</h2>
+    <span class="count">2 entries · 1 available</span>
+  </div>
+
+  <div class="articles-grid">
+    <a class="article-card" href="https://brainwormfeces.github.io/astronomically-brilliant/article1/article1.html">
+      <span class="article-num">no. 001</span>
+      <span class="article-title">TiO₂, Texas, and the 5 Second Rule</span>
+      <div class="article-meta">titanium dioxide · food science · hubris</div>
+    </a>
+    <div class="article-card coming-soon">
+      <span class="article-num">no. 002</span>
+      <span class="article-title">coming soon...</span>
+      <div class="article-meta">??</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+<div class="section-label">photographs</div>
+
+<section class="gallery-section" id="gallery">
+    <div class="section-header">
+    <h2>things I've seen</h2>
+    <span class="count">3 items</span>
+  </div>
+
+  <div class="gallery-grid">
+    <div class="gallery-item" onclick="openLightbox('https://brainwormfeces.github.io/astronomically-brilliant/IMG_2063.jpeg', 'My dog')">
+      <img src="https://brainwormfeces.github.io/astronomically-brilliant/IMG_2063.jpeg" alt="My dog" loading="lazy">
+      <div class="gallery-caption">My dog</div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox('https://brainwormfeces.github.io/astronomically-brilliant/IMG_3266.jpeg', 'Fish')">
+      <img src="https://brainwormfeces.github.io/astronomically-brilliant/IMG_3266.jpeg" alt="Fish" loading="lazy">
+      <div class="gallery-caption">Fish</div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox('https://brainwormfeces.github.io/astronomically-brilliant/IC_1805.jpg', 'IC 1805 — the Heart Nebula')">
+      <img src="https://brainwormfeces.github.io/astronomically-brilliant/IC_1805.jpg" alt="IC 1805" loading="lazy">
+      <div class="gallery-caption">IC 1805 · Heart Nebula</div>
+    </div>
+  </div>
+</section>
+
+<!-- user question form -->
+ <hr class="divider">
+<div class="section-label">Q &amp; A</div>
+
+<section class="qa-section" id="qa">
+  <div class="section-header">
+    <h2>piggybank for valuable thoughts</h2>
+  </div>
+  <p style="font-size:13px; color: var(--ink2); margin-bottom: 0.5rem;">ask away. no question too weird. no topic too niche.</p>
+
+  <div class="qa-form">
+    <textarea id="userQuestion" placeholder="what's on ur mind? (anything from TiO₂ to the heat death of the universe)"></textarea>
+      <span class="qa-note">questions may appear here with a response</span>
+    <button id="submitQuestion">ask away!</button>
+    <div id="moderatorPanel" style="display:none;"></div>
+    </div>
+  </div>
+  <div class="qa-list" id="qa-list">
+    <div class="qa-item">
+    <div id="questionsList"></div>
+      <div class="qa-q">is this blog actually updated regularly?</div>
+      <div class="qa-a">astronomically rarely. it aims to update at least once one or two months, no guarantees. but the intention is there, and intention is 80% of everything (citation needed).</div>
+    </div>
+</section>
 
     <!-- mod panel -->
     <div id="pendingQuestions"></div>
   </div>
 
-<!--footer-->
 <footer>
- <p>© astronomically and brilliantly inspired by Randall Munroe</p>
+  <span>© astronomically and brilliantly inspired by <a href="https://xkcd.com" target="_blank">randall munroe</a></span>
+  <span style="color: var(--line);">· · ·</span>
+  <span>brain feces → internet since ????</span>
 </footer>
-</body>
-</html>
 
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">close [esc]</button>
+  <img id="lightbox-img" src="" alt="">
+  <div class="lightbox-label" id="lightbox-label"></div>
+</div>
+
+  }
+</script>
 <script type="module" src="script.js"></script>
 </body>
 </html>
-
-
-<nav>
-  <!DOCTYPE html>
-<html>
-<head>
-<style>
-.tooltip {
-  position: relative;
-  display: inline-block;
-}
-
-.tooltip img {
-  position: absolute;
-  top: 25px;
-  left: 0;
-  width: 200px;
-  display: none;
-  border: 1px solid #ccc;
-}
-
-.tooltip:hover img {
-  display: block;
-}
-</style>
-</head>
-<body>
-
-<a href="#" class="tooltip">
-  My dog
-  <img src="IMG_2063.jpeg" alt="preview">
-</a>
-
-</body>
-</html>
-|
-  <!DOCTYPE html>
-<html>
-<head>
-<style>
-.tooltip {
-  position: relative;
-  display: inline-block;
-}
-
-.tooltip img {
-  position: absolute;
-  top: 25px;
-  left: 0;
-  width: 200px;
-  display: none;
-  border: 1px solid #ccc;
-}
-
-.tooltip:hover img {
-  display: block;
-}
-</style>
-</head>
-<body>
-
-<a href="#" class="tooltip">
-  Fish
-  <img src="IMG_3266.jpeg" alt="preview">
-</a>
-
-</body>
-</html>
-|
-  <!DOCTYPE html>
-<html>
-<head>
-<style>
-.tooltip {
-  position: relative;
-  display: inline-block;
-}
-
-.tooltip img {
-  position: absolute;
-  top: 25px;
-  left: 0;
-  width: 200px;
-  display: none;
-  border: 1px solid #ccc;
-}
-
-.tooltip:hover img {
-  display: block;
-}
-</style>
-</head>
-<body>
-
-<a href="#" class="tooltip">
-  IC 1805
-  <img src="IC_1805.jpg" alt="preview">
-</a>
-<br><br>
-<br><br>
-<br><br>
-<br><br>
-<br><br>
-<br><br>
-<br><br>
-<br><br>
-</nav>
-  
-<script type="module" src="script.js"></script>
-  
-</body>
-</html>
-
