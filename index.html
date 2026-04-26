@@ -164,7 +164,7 @@
 
   .hero-desc {
     font-size: 13px;
-    color: var(--ink2);
+    color: var(--ink3);
     max-width: 480px;
     line-height: 1.9;
     border-left: 2px solid var(--accent);
@@ -182,7 +182,7 @@
     font-size: 10px;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: var(--ink3);
+    color: var(--ink2);
     padding: 0.5rem 2rem;
     background: var(--bg2);
     border-bottom: 1px solid var(--line);
@@ -639,8 +639,8 @@
   <div class="qa-list" id="qa-list">
     <div class="qa-item">
     <div id="questionsList"></div>
-      <div class="qa-q">is this blog actually updated regularly?</div>
-      <div class="qa-a">astronomically rarely. it aims to update at least once one or two months, no guarantees. but the intention is there, and intention is 80% of everything (citation needed).</div>
+    <div class="qa-q">is this blog actually updated regularly?</div>
+    <div class="qa-a">astronomically rarely. it aims to update at least once one or two months, no guarantees. but the intention is there, and intention is 80% of everything (citation needed).</div>
     </div>
 </section>
 
@@ -661,6 +661,37 @@
   <div class="lightbox-label" id="lightbox-label"></div>
 </div>
 
+<script>
+  function openLightbox(src, label) {
+    var lb = document.getElementById('lightbox');
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox-label').textContent = label;
+    lb.classList.add('open');
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeLightbox();
+  });
+
+  document.getElementById('lightbox').addEventListener('click', function(e) {
+    if (e.target === this) closeLightbox();
+  });
+
+  function submitQuestion() {
+    var input = document.getElementById('question-input');
+    var q = input.value.trim();
+    if (!q) return;
+    var list = document.getElementById('qa-list');
+    var item = document.createElement('div');
+    item.className = 'qa-item';
+    item.style.animation = 'fadein 0.4s ease both';
+    item.innerHTML = '<div class="qa-q">' + q.replace(/</g,'&lt;') + '</div><div class="qa-a" style="color:var(--ink3); font-style:italic;">awaiting response...</div>';
+    list.insertBefore(item, list.firstChild);
+    input.value = '';
   }
 </script>
 <script type="module" src="script.js"></script>
